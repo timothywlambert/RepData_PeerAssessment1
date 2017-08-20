@@ -1,0 +1,85 @@
+---
+title: "Course 5 Project 1"
+author: "Tim Lambert"
+date: "August 19, 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up.  The mean and median steps are below along with a histogram of the number of steps.
+
+```{r, echo=FALSE}
+library(dplyr)
+activity_data <-read.csv(paste0(getwd(),"/activity.csv"))
+stepsperday <- activity_data %>%
+  group_by(date) %>%
+  summarise(sum(steps))
+hist(stepsperday$`sum(steps)`)
+meanstepsperday <- mean(na.omit(stepsperday$`sum(steps)`))
+medianstepsperday <- median(na.omit(stepsperday$`sum(steps)`))
+meanstepsperday
+medianstepsperday
+```
+
+## Plot of Steps Per Interval during the day.
+When we replace all NA values with the average for the particular day, the mean, median, and histogram do not change.
+
+```{r, echo=FALSE}
+stepsperinterval <- activity_data %>%
+  group_by(interval) %>%
+  summarise(mean(na.omit(steps)))
+ 
+plot(stepsperinterval$interval, stepsperinterval$`mean(na.omit(steps))`, type = "l")
+```
+
+
+```{r, echo=FALSE}
+activity_data_na <- subset(activity_data, is.na(activity_data))
+activity_data_na <- left_join(activity_data_na, stepsperinterval)
+activity_data_na$steps <- activity_data_na$`mean(na.omit(steps))`
+activity_data_na <- activity_data_na[,-c(4)]
+activity_data_new <- subset(activity_data, steps >= 0)
+activity_data_new <- rbind(activity_data_na, activity_data_new)
+
+stepsperday_new <- activity_data_new %>%
+  group_by(date) %>%
+  summarise(sum(steps))
+
+meanstepsperday_new <- mean(stepsperday_new$`sum(steps)`)
+medianstepsperday_news <- mean(stepsperday_new$`sum(steps)`)
+
+meanstepsperday_new
+medianstepsperday_news
+
+hist(stepsperday_new$`sum(steps)`)
+```
+
+##Compare Weekend vs. Weekday
+```{r, echo=FALSE}
+activity_data_new$date <- as.Date(activity_data_new$date)
+activity_data_new$day <- weekdays(activity_data_new$date)
+activity_data_new$day <- ifelse(activity_data_new$day == "Saturday" |
+                                  activity_data_new$day == "Sunday",
+                                "Weekend", "Weekday")
+
+weekendinterval <- activity_data_new %>%
+  filter(day == "Weekend") %>%
+  group_by(interval) %>%
+  summarise(mean(steps))
+
+weekdayinterval <- activity_data_new %>%
+  filter(day == "Weekday") %>%
+  group_by(interval) %>%
+  summarise(mean(steps))
+
+par(mfrow=c(1,2))
+plot(weekendinterval$interval, weekendinterval$`mean(steps)`, type="l")
+plot(weekdayinterval$interval, weekdayinterval$`mean(steps)`, type="l")
+```
