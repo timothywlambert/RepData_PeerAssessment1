@@ -1,45 +1,61 @@
-R Markdown
-----------
+# Course 5 Project 1
+Tim Lambert  
+August 19, 2017  
 
-It is now possible to collect a large amount of data about personal
-movement using activity monitoring devices such as a Fitbit, Nike
-Fuelband, or Jawbone Up. The mean and median steps are below along with
-a histogram of the number of steps.
 
-    ## 
-    ## Attaching package: 'dplyr'
 
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
+## R Markdown
 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
+It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up.  The mean and median steps are below along with a histogram of the number of steps.
 
-![](Course_5_Project_1_files/figure-markdown_strict/unnamed-chunk-1-1.png)
 
-    ## [1] 10766.19
+```
+## 
+## Attaching package: 'dplyr'
+```
 
-    ## [1] 10765
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
 
-Plot of Steps Per Interval during the day.
-------------------------------------------
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
 
-When we replace all NA values with the average for the particular day,
-the mean, median, and histogram do not change.
+![](Course_5_Project_1_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
-![](Course_5_Project_1_files/figure-markdown_strict/unnamed-chunk-2-1.png)
+```
+## [1] 10766.19
+```
 
-    ## Joining, by = "interval"
+```
+## [1] 10765
+```
 
-    ## [1] 10766.19
+## Plot of Steps Per Interval during the day.
+When we replace all NA values with the average for the particular day, the mean, median, and histogram do not change.
 
-    ## [1] 10766.19
+![](Course_5_Project_1_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
-![](Course_5_Project_1_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
-Compare Weekend vs. Weekday
----------------------------
 
-![](Course_5_Project_1_files/figure-markdown_strict/unnamed-chunk-4-1.png)
+```
+## Joining, by = "interval"
+```
+
+```
+## [1] 10766.19
+```
+
+```
+## [1] 10766.19
+```
+
+![](Course_5_Project_1_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+##Compare Weekend vs. Weekday
+![](Course_5_Project_1_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
